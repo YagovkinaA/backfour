@@ -151,7 +151,7 @@ $parts=$_POST['parts'];
 
 $user = 'u47478';
 $pass = '2559767';
-$db = new PDO('mysql:host=localhost; dbname=u46613', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+$db = new PDO('mysql:host=localhost; dbname=u47478', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
 // Подготовленный запрос. Не именованные метки.
 try {
