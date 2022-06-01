@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   if (!empty($_COOKIE['save'])) {
     // Если есть параметр save, то выводим сообщение пользователю.
     setcookie('save', '', 100000); 
-    $messages[] = 'Спасибо, ваши результаты сохранены.';
+    $messages[] = 'Спасибо, результаты сохранены.';
       // Если в куках есть пароль, то выводим сообщение.
     if (!empty($_COOKIE['pass'])) {
       $messages[] = sprintf('Вы можете <a href="login.php">войти</a> с логином <strong>%s</strong>
@@ -151,7 +151,7 @@ $parts=$_POST['parts'];
 
 $user = 'u47478';
 $pass = '2559767';
-$db = new PDO('mysql:host=localhost; dbname=u47478', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+$db = new PDO('mysql:host=localhost; dbname=u46613', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
 // Подготовленный запрос. Не именованные метки.
 try {

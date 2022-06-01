@@ -5,22 +5,22 @@
 	display:flex;
 	flex-direction:column;
 text-align:center;
-background-color:#dc3545;}
+background-color:#ff9911;}
 header {display:flex;
 flex-direction: column;
 text-align: center;
-background-color:skyblue}
-	  /* Сообщения об ошибках и поля с ошибками выводим с красным бордeром. */
+background-color:#dc3545}
+	  /* Сообщения об ошибках и поля с ошибками выводим с красным бордюром. */
 .error {
 	border: 2px solid red;
 	}
 	  </style>
-    <title>44<title>
+    <title>zadanie 4</title>
   </head>
   <body>
 <header>
-<p>Здравствуйте, заполните анкету, чтобы мы могли сохранить ваши данные.</p>
-<p>Над неправильными данными будет высвечиваться ошибка.</p>
+<p>Здравствуйте, заполните анкету, пожалуйста, сообщайте только проверенную информацию.</p>
+<p></p>
 </header>
 	  <?php
 if (!empty($messages)) {
@@ -63,7 +63,7 @@ if (!empty($messages)) {
 	<input type="radio" name="parts" value="1" <?php if ($values['parts'] == '1') {print 'checked';} ?>> 1 
         <input type="radio" name="parts" value="2" <?php if ($values['parts'] == '2') {print 'checked';} ?>> 2 
         <input type="radio" name="parts" value="3" <?php if ($values['parts'] == '3') {print 'checked';} ?>> 3 
-        <input type="radio" name="parts" value="4" <?php if ($values['parts'] == '4') {print 'checked';} ?>> 4
+        <input type="radio" name="parts" value="4" <?php if ($values['parts'] == '4') {print 'checked';} ?>> 4 
       </div>
 	Сверхспособности:
 	<br>
@@ -95,6 +95,5 @@ if (!empty($messages)) {
           else
             print('<a href="login.php" class = "gradient-button"  title = "Log out">Войти</a>');
           ?></li>
-      </ul>
-	 <img src="putty.png" alt="PuTTY">  
+      </ul>  
 </body></html>
