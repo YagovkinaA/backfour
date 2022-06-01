@@ -5,7 +5,7 @@
 	display:flex;
 	flex-direction:column;
 text-align:center;
-background-color:white;}
+background-color:#dc3545;}
 header {display:flex;
 flex-direction: column;
 text-align: center;
