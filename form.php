@@ -1,99 +1,121 @@
+<!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-<style>body { margin:0;
-	display:flex;
-	flex-direction:column;
-text-align:center;
-background-color:#ff9911;}
-header {display:flex;
-flex-direction: column;
-text-align: center;
-background-color:#dc3545}
-	  /* Сообщения об ошибках и поля с ошибками выводим с красным бордюром. */
-.error {
-	border: 2px solid red;
-	}
-	  </style>
-    <title>zadanie 4</title>
-  </head>
-  <body>
-<header>
-<p>Здравствуйте, заполните анкету, пожалуйста, сообщайте только проверенную информацию.</p>
-<p></p>
-</header>
-	  <?php
-if (!empty($messages)) {
-  print('<div id="messages">');
-  // Выводим все сообщения.
-  foreach ($messages as $message) {
-    print($message);
-  }
-  print('</div>');
-}
-	  // Далее выводим форму отмечая элементы с ошибками классом error
-// и задавая начальные значения элементов ранее сохраненными.
-?>
-	   <?php
-        if (!empty($_COOKIE[session_name()]) && !empty($_SESSION['login']))
-          print('<h3 id="form"> FORM<br/>(режим редактирования) </h3>');
-        else
-          print('<h3 id="form"> FORM </h3>');
-        ?>
-	  <br>
-	  <br>
-	<form action="" method="POST">
-		Имя:
-	<br>
-      <input type="text" name="name" 
-	     <?php if ($errors['name']) {print 'class="error"';} ?>
-	     value="<?php print $values['name']; ?>" />
-        <br> email:<br>
-	<input type="email" name="email" <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php print $values['email']; ?>" />
-        <br>Дата рождения:<br>
-	<input type="date" name="date" <?php if ($errors['date']) {print 'class="error"';} ?> value="<?php print $values['date']; ?>" />
-	<br>Пол:<br> 
-      	<div <?php if ($errors['pol']) {print 'class="error"';} ?>>
-        <input type="radio" name="pol" value="man" <?php if ($values['pol'] == 'man') {print 'checked';} ?>> Муж
-        <input type="radio" name="pol" value="woman" <?php if ($values['pol'] == 'woman') {print 'checked';} ?>> Жен
-      </div>
-		<br>
-	Количество конечностей:
-		 <div <?php if ($errors['parts']) {print 'class="error"';} ?>>
-	<input type="radio" name="parts" value="1" <?php if ($values['parts'] == '1') {print 'checked';} ?>> 1 
-        <input type="radio" name="parts" value="2" <?php if ($values['parts'] == '2') {print 'checked';} ?>> 2 
-        <input type="radio" name="parts" value="3" <?php if ($values['parts'] == '3') {print 'checked';} ?>> 3 
-        <input type="radio" name="parts" value="4" <?php if ($values['parts'] == '4') {print 'checked';} ?>> 4 
-      </div>
-	Сверхспособности:
-	<br>
-        <select name="abilities[]" multiple="true">
-		<option value="immortality" <?php if (in_array("immortality", $values['abilities'])) {print 'selected';} ?>>Бессмертие</option>
-		<option value="intangibility" <?php if (in_array("intangibility", $values['abilities'])) {print 'selected';} ?>>Прохождение сквозь стены</option>
-		<option value="levitation" <?php if (in_array("levitation", $values['abilities'])) {print 'selected';} ?>>Левитация</option>
-        </select>
-	<br>
-	Биография:
-	<br>
-        <textarea name="biography" style="margin: 0px; height: 69px; width: 180px;"><?php print $values['biography']; ?></textarea>
-      	</label>
-	<br>
-      	<label>
-    	<input id="checkbox" type="checkbox" name="checkbox" onchange="document.getElementById('submit').disabled = !this.checked;" /> 
-		С контрактом ознакомлен(а)
-		<br>
-		</label>
-		<input type="submit" disabled="disabled" name="submit" id="submit" value="Отправить" />
-		<br>
-    </form>
-	 <br>
-	   <ul>
-        <li>
-          <?php
-          if (!empty($_COOKIE[session_name()]) && !empty($_SESSION['login']))
-            print('<a href="./?quit=1" class = "gradient-button" title = "Log in">Выйти</a>');
-          else
-            print('<a href="login.php" class = "gradient-button"  title = "Log out">Войти</a>');
-          ?></li>
-      </ul>  
-</body></html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <title>web4</title>
+</head>
+<body>
+  <div class="main">
+    <?php
+    if ($errorOutput) {
+      print('<section id="messages">');
+      if ($hasErrors)
+        print('<h2>Ошибка</h2>');
+      else
+        print('<h2>Сообщения</h2>');
+      print($errorOutput);
+      print('</section>');
+    }
+    ?>
+    <section id="form">
+      <h2>Форма</h2>
+      <form action="."
+        method="POST">
+        <label>
+          Имя<br />
+          <input name="name" <?php if (!empty($errors['name'])) {print 'class="error"';} ?>
+            value="<?php print $values['name']; ?>"/>
+        </label><br />
+
+        <label>
+          E-mail:<br />
+          <input name="email" <?php if (!empty($errors['email'])) {print 'class="error"';} ?>
+            value="<?php print $values['email']; ?>"
+            type="email" />
+        </label><br />
+
+        <label>
+          Дата рождения:<br />
+          <input name="birthday" <?php if (!empty($errors['birthday'])) {print 'class="error"';} ?>
+            value="<?php print $values['birthday']; ?>"
+            type="date" />
+        </label><br />
+
+        Пол:<br />
+        <label><input type="radio"
+          name="gender" value="M" <?php if ($values['gender'] == 'M') {print 'checked';} ?>/>
+          мужской
+        </label>
+        <label><input type="radio"
+          name="gender" value="F" <?php if ($values['gender'] == 'F') {print 'checked';} ?> />
+          женский
+        </label>
+        <label><input type="radio"
+          name="gender" value="O" <?php if ($values['gender'] == 'O') {print 'checked';} ?> />
+          другое
+        </label>
+        <br />
+
+        Количество конечностей:<br />
+        <label><input type="radio" <?php if ($values['limbs'] == '0') {print 'checked';} ?>
+          name="limbs" value="0" />
+          0
+        </label>
+        <label><input type="radio" <?php if ($values['limbs'] == '1') {print 'checked';} ?>
+          name="limbs" value="1" />
+          1
+        </label>
+        <label><input type="radio" <?php if ($values['limbs'] == '2') {print 'checked';} ?>
+          name="limbs" value="2" />
+          2
+        </label>
+        <label><input type="radio" <?php if ($values['limbs'] == '3') {print 'checked';} ?>
+          name="limbs" value="3" />
+          3
+        </label>
+        <label><input type="radio" <?php if ($values['limbs'] == '4') {print 'checked';} ?>
+          name="limbs" value="4" />
+          4
+        </label>
+        <label><input type="radio" <?php if ($values['limbs'] == '5') {print 'checked';} ?>
+          name="limbs" value="5" />
+          5+
+        </label>
+        <br />
+
+        <label>
+          Сверхспособности:
+          <br />
+          <select name="superpowers[]"
+            multiple="multiple">
+            <option value="0" <?php if ($values['superpowers']['0']) {print 'selected';} ?>>Бессмертие</option>
+            <option value="1" <?php if ($values['superpowers']['1']) {print 'selected';} ?>>Бестленность</option>
+            <option value="2" <?php if ($values['superpowers']['2']) {print 'selected';} ?>>Левитация</option>
+          </select>
+        </label><br />
+
+        <label>
+          Биография:<br />
+          <textarea name="biography"><?php print $values['biography']; ?></textarea>
+        </label><br />
+
+        <br />
+        <label <?php if (array_key_exists('contract', $errors)) {print 'class="error"';} ?>>
+        <input type="checkbox"
+          name="contract" <?php if ($values['contract']) {print 'checked';} ?>/>
+          С контрактом ознакомлен
+        </label><br />
+        
+        <input id="submit" type="submit" value="Отправить" />
+      </form>
+    </section>
+  </div>
+  <footer class="foot">
+        <div id=contacts>
+            <h4>kubsu 2022</h4>
+        </div>
+    </footer>
+</body>
+</html>
